@@ -1,5 +1,5 @@
-import pandas as pd
 import joblib
+import pandas as pd
 
 def loadmodel():
     path = r"C:\Users\HP\Documents\PycharmProjects\laptop-battery-health-predictor\model\best-model.pkl"
@@ -7,6 +7,6 @@ def loadmodel():
 
 def predict(new_data):
     model = loadmodel()
-    data = pd.DataFrame(new_data)
+    data = pd.DataFrame([new_data])
     prediction = model.predict(data)
-    return prediction
+    return prediction[0]

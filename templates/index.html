@@ -4,133 +4,268 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Laptop Battery Health Predictor</title>
+    <title>Battery Health Predictor</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
 <body>
 
-    <h1>Laptop Battery Health Predictor</h1>
+<div class="page">
 
-    <p>Enter your laptop information to predict battery health.</p>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            <span class="battery-icon">🔋</span>
+            <span>Battery Health Predictor</span>
+        </div>
 
-    <form method="POST">
-
-        <!-- Battery Age -->
-        <label for="battery_age">Battery Age (years):</label>
-        <input
-            type="number"
-            id="battery_age"
-            name="battery_age"
-            step="0.1"
-            min="0"
-            required
-        >
-
-        <br><br>
-
-        <!-- Daily Usage -->
-        <label for="daily_usage_hours">Daily Usage Hours:</label>
-        <input
-            type="number"
-            id="daily_usage_hours"
-            name="daily_usage_hours"
-            step="0.1"
-            min="0"
-            required
-        >
-
-        <br><br>
-
-        <!-- Gaming User -->
-        <label for="gaming_user">Gaming User:</label>
-        <select id="gaming_user" name="gaming_user" required>
-            <option value="1">Yes</option>
-            <option value="0">No</option>
-        </select>
-
-        <br><br>
-
-        <!-- Cycle Count -->
-        <label for="cycle_count">Cycle Count:</label>
-        <input
-            type="number"
-            id="cycle_count"
-            name="cycle_count"
-            min="0"
-            required
-        >
-
-        <br><br>
-
-        <!-- CPU Usage -->
-        <label for="cpu_usage">CPU Usage (%):</label>
-        <input
-            type="number"
-            id="cpu_usage"
-            name="cpu_usage"
-            step="0.1"
-            min="0"
-            max="100"
-            required
-        >
-
-        <br><br>
-
-        <!-- GPU Usage -->
-        <label for="gpu_usage">GPU Usage (%):</label>
-        <input
-            type="number"
-            id="gpu_usage"
-            name="gpu_usage"
-            step="0.1"
-            min="0"
-            max="100"
-            required
-        >
-
-        <br><br>
-
-        <!-- Power Consumption -->
-        <label for="power_consumption">Power Consumption:</label>
-        <input
-            type="number"
-            id="power_consumption"
-            name="power_consumption"
-            step="0.1"
-            min="0"
-            required
-        >
-
-        <br><br>
-
-        <!-- Average Temperature -->
-        <label for="average_temperature">Average Temperature (°C):</label>
-        <input
-            type="number"
-            id="average_temperature"
-            name="average_temperature"
-            step="0.1"
-            min="0"
-            required
-        >
-
-        <br><br>
-
-        <button type="submit">Predict Battery Health</button>
-
-    </form>
+        <p>AI-powered laptop battery health estimation</p>
+    </header>
 
 
-    {% if prediction is not none %}
+    <!-- Main -->
+    <main class="container">
 
-        <h2>Prediction Result</h2>
+        <section class="hero">
+            <h1>Check Your Laptop's Battery Health</h1>
 
-        <p>
-            Predicted Battery Health:
-            <strong>{{ "%.2f"|format(prediction) }}%</strong>
-        </p>
+            <p>
+                Enter your laptop's current usage and battery information
+                to estimate its battery health.
+            </p>
+        </section>
 
-    {% endif %}
+
+        <!-- Prediction Form -->
+        <section class="card">
+
+            <h2>Battery Information</h2>
+
+            <form method="POST" id="predictionForm">
+
+                <div class="form-grid">
+
+                    <!-- Battery Age -->
+                    <div class="input-group">
+                        <label for="battery_age">
+                            Battery Age
+                            <span>(years)</span>
+                        </label>
+
+                        <input
+                            type="number"
+                            id="battery_age"
+                            name="battery_age"
+                            step="0.1"
+                            min="0"
+                            required
+                            placeholder="e.g. 2">
+                    </div>
+
+
+                    <!-- Daily Usage -->
+                    <div class="input-group">
+                        <label for="daily_usage_hours">
+                            Daily Usage
+                            <span>(hours)</span>
+                        </label>
+
+                        <input
+                            type="number"
+                            id="daily_usage_hours"
+                            name="daily_usage_hours"
+                            step="0.1"
+                            min="0"
+                            max="24"
+                            required
+                            placeholder="e.g. 6">
+                    </div>
+
+
+                    <!-- Gaming User -->
+                    <div class="input-group">
+                        <label for="gaming_user">
+                            Gaming User
+                        </label>
+
+                        <select id="gaming_user" name="gaming_user" required>
+                            <option value="" disabled selected>
+                                Select option
+                            </option>
+
+                            <option value="1">Yes</option>
+                            <option value="0">No</option>
+                        </select>
+                    </div>
+
+
+                    <!-- Cycle Count -->
+                    <div class="input-group">
+                        <label for="cycle_count">
+                            Cycle Count
+                        </label>
+
+                        <input
+                            type="number"
+                            id="cycle_count"
+                            name="cycle_count"
+                            min="0"
+                            required
+                            placeholder="e.g. 500">
+                    </div>
+
+
+                    <!-- CPU -->
+                    <div class="input-group">
+                        <label for="cpu_usage">
+                            CPU Usage
+                            <span>(%)</span>
+                        </label>
+
+                        <input
+                            type="number"
+                            id="cpu_usage"
+                            name="cpu_usage"
+                            step="0.1"
+                            min="0"
+                            max="100"
+                            required
+                            placeholder="e.g. 30">
+                    </div>
+
+
+                    <!-- GPU -->
+                    <div class="input-group">
+                        <label for="gpu_usage">
+                            GPU Usage
+                            <span>(%)</span>
+                        </label>
+
+                        <input
+                            type="number"
+                            id="gpu_usage"
+                            name="gpu_usage"
+                            step="0.1"
+                            min="0"
+                            max="100"
+                            required
+                            placeholder="e.g. 10">
+                    </div>
+
+
+                    <!-- Power -->
+                    <div class="input-group">
+                        <label for="power_consumption">
+                            Power Consumption
+                            <span>(W)</span>
+                        </label>
+
+                        <input
+                            type="number"
+                            id="power_consumption"
+                            name="power_consumption"
+                            step="0.1"
+                            min="0"
+                            required
+                            placeholder="e.g. 40">
+                    </div>
+
+
+                    <!-- Temperature -->
+                    <div class="input-group">
+                        <label for="average_temperature">
+                            Average Temperature
+                            <span>(°C)</span>
+                        </label>
+
+                        <input
+                            type="number"
+                            id="average_temperature"
+                            name="average_temperature"
+                            step="0.1"
+                            min="0"
+                            max="120"
+                            required
+                            placeholder="e.g. 45">
+                    </div>
+
+                </div>
+
+
+                <!-- Buttons -->
+                <div class="buttons">
+
+                    <button type="submit" class="predict-btn">
+                        Predict Battery Health
+                    </button>
+
+                    <button type="reset" class="reset-btn">
+                        Reset
+                    </button>
+
+                </div>
+
+            </form>
+
+        </section>
+
+
+        <!-- Prediction Result -->
+
+        {% if prediction is not none %}
+
+        <section class="result-card">
+
+            <div class="result-title">
+                <span>🔋</span>
+                <h2>Prediction Result</h2>
+            </div>
+
+            <div class="health-value">
+                {{ "%.2f"|format(prediction) }}%
+            </div>
+
+            <div class="health-bar">
+                <div
+                    class="health-fill"
+                    style="width: {{ prediction }}%;">
+                </div>
+            </div>
+
+            <p class="result-message">
+
+                {% if prediction >= 80 %}
+                    Your battery health is excellent.
+                {% elif prediction >= 60 %}
+                    Your battery health is good.
+                {% elif prediction >= 40 %}
+                    Your battery health is moderate.
+                {% else %}
+                    Your battery health may need attention.
+                {% endif %}
+
+            </p>
+
+        </section>
+
+        {% endif %}
+
+
+        <!-- Footer -->
+
+        <footer>
+            <p>
+                Battery Health Predictor • Machine Learning Project
+            </p>
+        </footer>
+
+    </main>
+
+</div>
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
 
 </body>
 </html>
