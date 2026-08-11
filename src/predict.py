@@ -1,8 +1,9 @@
 import joblib
 import pandas as pd
+from pathlib import Path
 
 def loadmodel():
-    path = r"C:\Users\HP\Documents\PycharmProjects\laptop-battery-health-predictor\model\best-model.pkl"
+    path = Path(__file__).resolve().parent.parent/ "model" / "best-model.pkl"
     return joblib.load(path)
 
 def predict(new_data):
