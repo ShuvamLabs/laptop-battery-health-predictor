@@ -234,7 +234,7 @@ laptop-battery-health-predictor/
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/YOUR-USERNAME/laptop-battery-health-predictor.git
+git clone https://github.com/ShuvamLabs/laptop-battery-health-predictor.git
 ```
 
 ### 2. Navigate to the project directory
